@@ -1,20 +1,18 @@
 package com.redhat.demos.quarkusretailstore.invoicing;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Collection;
 
 /**
  * Entity storing Invoice data
  */
 @Entity
-class InvoiceRecord extends PanacheEntity {
+class InvoiceRecord extends PanacheEntityBase {
 
-    @Id
+    @Id @Column(nullable = false, unique = true, name = "invoice_id")
     String invoiceId;
 
     @OneToOne
@@ -37,7 +35,7 @@ class InvoiceRecord extends PanacheEntity {
     public String toString() {
         final StringBuilder sb = new StringBuilder("InvoiceRecord{");
         sb.append("customerName='").append(customerName).append('\'');
-        sb.append(", id=").append(id);
+        sb.append(", id=").append(invoiceId);
         sb.append('}');
         return sb.toString();
     }

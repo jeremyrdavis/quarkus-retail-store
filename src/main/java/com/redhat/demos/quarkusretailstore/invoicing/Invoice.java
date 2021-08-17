@@ -42,8 +42,8 @@ public class Invoice {
         invoiceRecord.customerName = invoiceData.customer;
     }
 
-    public Long getId() {
-        return invoiceRecord.id;
+    public String getId() {
+        return invoiceRecord.invoiceId;
     }
 
     public String getCustomer(){
