@@ -14,7 +14,8 @@ public class ProductsServiceImpl implements ProductsService {
     Collection<ProductMaster> productMasters = new ArrayList(
             Arrays.asList(new ProductMaster(UUID.randomUUID().toString(), "A product"),
                     new ProductMaster(UUID.randomUUID().toString(), "Another product"),
-                    new ProductMaster(UUID.randomUUID().toString(), "Yet another product"))
+                    new ProductMaster(UUID.randomUUID().toString(), "Yet another product"),
+                    new ProductMaster(UUID.randomUUID().toString(), "One more product"))
     );
 
     @Override

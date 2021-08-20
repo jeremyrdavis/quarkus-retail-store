@@ -21,7 +21,7 @@ public class ProductsServiceTest {
 
         Collection<ProductMaster> results = productsService.getAllProducts();
         assertNotNull(results);
-        assertEquals(3, results.size());
+        assertEquals(4, results.size());
 
     }
 }
