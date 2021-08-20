@@ -17,8 +17,10 @@ public class StoreConfigurationTest {
     @Test
     public void testStoreConfiguration() {
 
-        assertNotNull(store);
-        assertEquals("ATLANTA-01", store.storeId);
-        assertEquals("DECATUR", store.storeName);
+        assertEquals("ATLANTA-01", store.storeId());
+        assertEquals("DECATUR", store.storeName());
+        assertNotNull(store.storeAddress());
+        assertEquals("426 W Ponce de Leon Ave", store.storeAddress().street());
+        assertEquals("3340 Peachtree Rd NE", store.mailingAddress().street());
     }
 }

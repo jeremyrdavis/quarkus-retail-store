@@ -12,6 +12,14 @@ public class InvoiceRepository implements PanacheRepository<InvoiceRecord> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InvoiceRepository.class);
 
+    public Invoice findById(final String invoiceId) throws NoSuchInvoiceException {
+        InvoiceRecord invoiceRecord = InvoiceRecord.findById(invoiceId);
+        if (invoiceRecord == null) {
+            throw new NoSuchInvoiceException(invoiceId);
+        }
+        return Invoice.from(invoiceRecord);
+    }
+
     @Transactional
     public Invoice persist(Invoice invoice) {
 

@@ -10,6 +10,10 @@ public class Invoice {
 
     InvoiceRecord invoiceRecord;
 
+    public static Invoice from(InvoiceRecord invoiceRecord) {
+        return new Invoice(invoiceRecord);
+    }
+
     public static Invoice createFrom(final CreateInvoiceCommand createInvoiceCommand) {
 
         InvoiceRecord invoiceRecord = new InvoiceRecord();

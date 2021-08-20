@@ -1,26 +1,26 @@
 package com.redhat.demos.quarkusretailstore.store;
 
-import com.redhat.demos.quarkusretailstore.products.Address;
+import io.quarkus.arc.config.ConfigPrefix;
+import io.smallrye.config.ConfigMapping;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
-@Singleton
-public class Store {
+@ConfigMapping(prefix = "store")
+public interface Store {
 
-    @ConfigProperty(name = "storeId")
-    String storeId;
+    String storeId();
 
-    @ConfigProperty(name = "storeName")
-    String storeName;
+    String storeName();
 
-    Address storeAddress;
+    Address storeAddress();
 
-    Address physicalAddress;
+    Address physicalAddress();
 
-    Address mailingAddress;
+    Address mailingAddress();
 
-    Address billingAddress;
+    Address billingAddress();
 
     
 
