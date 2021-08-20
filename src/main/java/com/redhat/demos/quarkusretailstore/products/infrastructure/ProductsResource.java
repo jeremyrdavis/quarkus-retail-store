@@ -1,7 +1,6 @@
 package com.redhat.demos.quarkusretailstore.products.infrastructure;
 
 import com.redhat.demos.quarkusretailstore.products.ProductMaster;
-import com.redhat.demos.quarkusretailstore.products.ProductsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,4 +1,6 @@
-package com.redhat.demos.quarkusretailstore.products;
+package com.redhat.demos.quarkusretailstore.products.infrastructure;
+
+import com.redhat.demos.quarkusretailstore.products.ProductMaster;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
@@ -7,7 +9,7 @@ import java.util.Collection;
 import java.util.UUID;
 
 @ApplicationScoped
-public class ProductServiceImpl implements ProductsService{
+public class ProductsServiceImpl implements ProductsService {
 
     Collection<ProductMaster> productMasters = new ArrayList(
             Arrays.asList(new ProductMaster(UUID.randomUUID().toString(), "A product"),
