@@ -1,5 +1,6 @@
 package com.redhat.demos.quarkusretailstore.products;
 
+import com.redhat.demos.quarkusretailstore.products.infrastructure.ProductsService;
 import io.quarkus.test.Mock;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -11,7 +12,7 @@ import java.util.UUID;
 
 @Alternative
 @ApplicationScoped
-public class MockProductsService {
+public class MockProductsService implements ProductsService {
 
     public Collection<ProductMaster> getAllProducts() {
         return new ArrayList(
@@ -19,5 +20,10 @@ public class MockProductsService {
             new ProductMaster(UUID.randomUUID().toString(), "Another product"),
             new ProductMaster(UUID.randomUUID().toString(), "Yet another product"))
         );
+    }
+
+    @Override
+    public ProductMaster getProductById(String skuId) throws NoSuchProductException {
+        return new ProductMaster(skuId, "A mocked product");
     }
 }

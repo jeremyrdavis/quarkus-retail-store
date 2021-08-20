@@ -1,8 +1,10 @@
 package com.redhat.demos.quarkusretailstore.products.infrastructure;
 
+import com.redhat.demos.quarkusretailstore.products.NoSuchProductException;
 import com.redhat.demos.quarkusretailstore.products.ProductMaster;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,5 +23,10 @@ public class ProductsServiceImpl implements ProductsService {
     @Override
     public Collection<ProductMaster> getAllProducts() {
         return productMasters;
+    }
+
+    @Override
+    public ProductMaster getProductById(String skuId) throws NoSuchProductException {
+        return new ProductMaster(skuId, "A product");
     }
 }
