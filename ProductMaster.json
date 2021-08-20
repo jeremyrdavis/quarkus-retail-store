@@ -1,0 +1,165 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "ProductMaster",
+        "version": "1.0.0",
+        "description": "Defines a product"
+    },
+    "paths": {
+        "/products": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Product"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get all products"
+            }
+        },
+        "/product": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get specified product"
+            },
+            "parameters": [
+                {
+                    "name": "skuId",
+                    "description": "",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "query",
+                    "required": true
+                }
+            ]
+        },
+        "/inventory": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/InventoryRecord"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/InventoryRecord"
+                            }
+                        }
+                    },
+                    "required": true
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Product": {
+                "title": "Root Type for Product",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "skuId": {
+                        "type": "string"
+                    },
+                    "productDescription": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "skuId": "aalkdsjfos7-9089sggsd",
+                    "productDescription": "An awesome widget"
+                }
+            },
+            "InventoryRecord": {
+                "description": "Represents the inventory of a particular sku",
+                "required": [
+                    "product",
+                    "unitCost",
+                    "maxRetailPrice",
+                    "orderQuantity",
+                    "inStockQuantity",
+                    "backOrderQuantity",
+                    "lastStockDate",
+                    "lastSaleDate",
+                    "minimumQuantity",
+                    "maximumQuantity"
+                ],
+                "type": "object",
+                "properties": {
+                    "product": {
+                        "$ref": "#/components/schemas/Product",
+                        "description": ""
+                    },
+                    "unitCost": {
+                        "description": "",
+                        "type": "number"
+                    },
+                    "maxRetailPrice": {
+                        "description": "",
+                        "type": "number"
+                    },
+                    "orderQuantity": {
+                        "description": "",
+                        "type": "number"
+                    },
+                    "inStockQuantity": {
+                        "description": "",
+                        "type": "number"
+                    },
+                    "backOrderQuantity": {
+                        "description": "",
+                        "type": "number"
+                    },
+                    "lastStockDate": {
+                        "description": "",
+                        "type": "number"
+                    },
+                    "lastSaleDate": {
+                        "description": "",
+                        "type": "number"
+                    },
+                    "minimumQuantity": {
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "maximumQuantity": {
+                        "description": "",
+                        "type": "integer"
+                    }
+                }
+            }
+        }
+    }
+}
