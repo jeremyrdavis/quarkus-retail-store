@@ -77,4 +77,9 @@ public class MockInventoryService implements InventoryService {
     public InventoryJson addInventory(InventoryJson inventoryJson) {
         return null;
     }
+
+    @Override
+    public InventoryJson updateInventory(InventoryJson inventoryJson) {
+        return null;
+    }
 }

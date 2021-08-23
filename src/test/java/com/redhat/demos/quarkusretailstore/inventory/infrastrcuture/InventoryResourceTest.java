@@ -8,6 +8,7 @@ import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.core.MediaType;
@@ -25,7 +26,9 @@ import static org.hamcrest.Matchers.hasSize;
 @TestProfile(InventoryResourceTestProfile.class)
 public class InventoryResourceTest {
 
-    @Test
+    static final String skuId = UUID.randomUUID().toString();
+
+    @Test @Order(3)
     public void testCompleteInventory() {
 
         RestAssured.registerParser(MediaType.APPLICATION_JSON, Parser.JSON);
@@ -37,11 +40,34 @@ public class InventoryResourceTest {
                 .body("$", hasSize(greaterThan(3)));
     }
 
-    @Test
+    @Test @Order(2)
+    public void testUpdatingInventory() {
+
+        with().body(JsonUtil.toJson(new InventoryJson(
+                        new ProductMaster(skuId, "A new product description"),
+                        BigDecimal.valueOf(19.99),
+                        BigDecimal.valueOf(24.99),
+                        1,
+                        9,
+                        0,
+                        LocalDateTime.of(2021, 8, 15, 4, 30),
+                        LocalDateTime.now().minusMinutes(3),
+                        10,
+                        15
+                )))
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .when()
+                .request("PATCH", "/inventory")
+                .then()
+                .statusCode(201);
+    }
+
+    @Test @Order(1)
     public void testAddingInventory() {
 
         System.out.println(JsonUtil.toJson(new InventoryJson(
-                new ProductMaster(UUID.randomUUID().toString(), "A product description"),
+                new ProductMaster(skuId, "A product description"),
                 BigDecimal.valueOf(19.99),
                 BigDecimal.valueOf(24.99),
                 1,
@@ -54,7 +80,7 @@ public class InventoryResourceTest {
         )));
 
         with().body(JsonUtil.toJson(new InventoryJson(
-                        new ProductMaster(UUID.randomUUID().toString(), "A product description"),
+                        new ProductMaster(skuId, "A product description"),
                         BigDecimal.valueOf(19.99),
                         BigDecimal.valueOf(24.99),
                         1,
