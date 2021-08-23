@@ -1,14 +1,12 @@
 package com.redhat.demos.quarkusretailstore.inventory.infrastrcuture;
 
 import com.redhat.demos.quarkusretailstore.inventory.Inventory;
+import com.redhat.demos.quarkusretailstore.inventory.InventoryJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
@@ -28,6 +26,14 @@ public class InventoryResource {
 
         Collection<Inventory> completeInventory = inventoryService.getCompeleteInventory();
         LOGGER.debug("Returning {} items", completeInventory.size());
-        return Response.status(200).entity(inventoryService.getCompeleteInventory()).build();
+        return Response.status(Response.Status.OK).entity(inventoryService.getCompeleteInventory()).build();
+    }
+
+    @POST
+    public Response createInventory(final InventoryJson inventoryJson) {
+
+        LOGGER.debug("received {}", inventoryJson);
+        InventoryJson result = inventoryService.addInventory(inventoryJson);
+        return Response.status(Response.Status.CREATED).entity(result).build();
     }
 }

@@ -1,6 +1,7 @@
 package com.redhat.demos.quarkusretailstore.inventory.infrastrcuture;
 
 import com.redhat.demos.quarkusretailstore.inventory.Inventory;
+import com.redhat.demos.quarkusretailstore.inventory.InventoryJson;
 import com.redhat.demos.quarkusretailstore.products.ProductMaster;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -58,5 +59,11 @@ public class InventoryServiceImpl implements InventoryService{
     @Override
     public Collection<Inventory> getCompeleteInventory() {
         return completeInventory;
+    }
+
+    @Override
+    public InventoryJson addInventory(final InventoryJson inventoryJson) {
+
+        return Inventory.from(inventoryJson).toInventoryJson();
     }
 }

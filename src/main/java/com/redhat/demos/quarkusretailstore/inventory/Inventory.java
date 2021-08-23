@@ -6,6 +6,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -46,6 +47,36 @@ public class Inventory extends PanacheEntity {
         this.lastSaleDate = lastSaleDate;
         this.minimumQuantity = minimumQuantity;
         this.maximumQuantity = maximumQuantity;
+    }
+
+    public static Inventory from(final InventoryJson inventoryJson) {
+
+        return new Inventory(
+                inventoryJson.productMaster,
+                inventoryJson.unitCost,
+                inventoryJson.maxRetailPrice,
+                inventoryJson.orderQuantity,
+                inventoryJson.inStockQuantity,
+                inventoryJson.backOrderQuantity,
+                Date.from(inventoryJson.lastStockDate.toInstant()),
+                Date.from(inventoryJson.lastSaleDate.toInstant()),
+                inventoryJson.minimumQuantity,
+                inventoryJson.maximumQuantity
+        );
+    }
+
+    public InventoryJson toInventoryJson() {
+
+        return new InventoryJson(this.productMaster,
+                this.unitCost,
+                this.maxRetailPrice,
+                this.orderQuantity,
+                this.inStockQuantity,
+                this.backOrderQuantity,
+                this.lastStockDate,
+                this.lastSaleDate,
+                this.minimumQuantity,
+                this.maximumQuantity);
     }
 
     @Override
