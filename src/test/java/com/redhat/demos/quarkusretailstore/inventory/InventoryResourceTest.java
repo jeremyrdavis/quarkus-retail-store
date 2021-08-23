@@ -1,6 +1,6 @@
-package com.redhat.demos.quarkusretailstore.inventory.infrastrcuture;
+package com.redhat.demos.quarkusretailstore.inventory;
 
-import com.redhat.demos.quarkusretailstore.inventory.InventoryJson;
+import com.redhat.demos.quarkusretailstore.ui.InventoryJson;
 import com.redhat.demos.quarkusretailstore.products.ProductMaster;
 import com.redhat.demos.quarkusretailstore.utils.JsonUtil;
 import io.quarkus.test.junit.QuarkusTest;
@@ -59,7 +59,7 @@ public class InventoryResourceTest {
                 .when()
                 .request("PATCH", "/inventory")
                 .then()
-                .statusCode(201);
+                .statusCode(200);
     }
 
     @Test @Order(1)

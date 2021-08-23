@@ -1,4 +1,4 @@
-package com.redhat.demos.quarkusretailstore.inventory;
+package com.redhat.demos.quarkusretailstore.ui;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,25 +11,25 @@ import java.util.Date;
 
 public class InventoryJson {
 
-    final ProductMaster productMaster;
+    public final ProductMaster productMaster;
 
-    final BigDecimal unitCost;
+    public final BigDecimal unitCost;
 
-    final BigDecimal maxRetailPrice;
+    public final BigDecimal maxRetailPrice;
 
-    final int orderQuantity;
+    public final int orderQuantity;
 
-    final int inStockQuantity;
+    public final int inStockQuantity;
 
-    final int backOrderQuantity;
+    public final int backOrderQuantity;
 
-    final Date lastStockDate;
+    public final Date lastStockDate;
 
-    final Date lastSaleDate;
+    public final Date lastSaleDate;
 
-    final int minimumQuantity;
+    public final int minimumQuantity;
 
-    final int maximumQuantity;
+    public final int maximumQuantity;
 
     public InventoryJson(ProductMaster productMaster, BigDecimal unitCost, BigDecimal maxRetailPrice, int orderQuantity, int inStockQuantity, int backOrderQuantity, LocalDateTime lastStockDate, LocalDateTime lastSaleDate, int minimumQuantity, int maximumQuantity) {
         this.productMaster = productMaster;

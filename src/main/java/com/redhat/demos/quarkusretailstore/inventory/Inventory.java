@@ -1,5 +1,6 @@
 package com.redhat.demos.quarkusretailstore.inventory;
 
+import com.redhat.demos.quarkusretailstore.inventory.api.InventoryDTO;
 import com.redhat.demos.quarkusretailstore.products.ProductMaster;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-public class Inventory extends PanacheEntity {
+class Inventory extends PanacheEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     ProductMaster productMaster;
@@ -26,9 +27,9 @@ public class Inventory extends PanacheEntity {
 
     int backOrderQuantity;
 
-    Date lastStockDate;
+    LocalDateTime lastStockDate;
 
-    Date lastSaleDate;
+    LocalDateTime lastSaleDate;
 
     int minimumQuantity;
 
@@ -37,7 +38,7 @@ public class Inventory extends PanacheEntity {
     public Inventory() {
     }
 
-    public Inventory(ProductMaster productMaster, BigDecimal unitCost, BigDecimal maxRetailPrice, int orderQuantity, int inStockQuantity, int backOrderQuantity, Date lastStockDate, Date lastSaleDate, int minimumQuantity, int maximumQuantity) {
+    public Inventory(ProductMaster productMaster, BigDecimal unitCost, BigDecimal maxRetailPrice, int orderQuantity, int inStockQuantity, int backOrderQuantity, LocalDateTime lastStockDate, LocalDateTime lastSaleDate, int minimumQuantity, int maximumQuantity) {
         this.productMaster = productMaster;
         this.unitCost = unitCost;
         this.maxRetailPrice = maxRetailPrice;
@@ -50,25 +51,25 @@ public class Inventory extends PanacheEntity {
         this.maximumQuantity = maximumQuantity;
     }
 
-    public static Inventory from(final InventoryJson inventoryJson) {
+    public static Inventory from(final InventoryDTO inventoryDTO) {
 
         return new Inventory(
-                inventoryJson.productMaster,
-                inventoryJson.unitCost,
-                inventoryJson.maxRetailPrice,
-                inventoryJson.orderQuantity,
-                inventoryJson.inStockQuantity,
-                inventoryJson.backOrderQuantity,
-                Date.from(inventoryJson.lastStockDate.toInstant()),
-                Date.from(inventoryJson.lastSaleDate.toInstant()),
-                inventoryJson.minimumQuantity,
-                inventoryJson.maximumQuantity
+                inventoryDTO.getProductMaster(),
+                inventoryDTO.getUnitCost(),
+                inventoryDTO.getMaxRetailPrice(),
+                inventoryDTO.getOrderQuantity(),
+                inventoryDTO.getInStockQuantity(),
+                inventoryDTO.getBackOrderQuantity(),
+                inventoryDTO.getLastStockDate(),
+                inventoryDTO.getLastSaleDate(),
+                inventoryDTO.getMinimumQuantity(),
+                inventoryDTO.getMaximumQuantity()
         );
     }
 
-    public InventoryJson toInventoryJson() {
+    public InventoryDTO toInventoryDTO() {
 
-        return new InventoryJson(this.productMaster,
+        return new InventoryDTO(this.productMaster,
                 this.unitCost,
                 this.maxRetailPrice,
                 this.orderQuantity,
@@ -182,19 +183,19 @@ public class Inventory extends PanacheEntity {
         this.backOrderQuantity = backOrderQuantity;
     }
 
-    public Date getLastStockDate() {
+    public LocalDateTime getLastStockDate() {
         return lastStockDate;
     }
 
-    public void setLastStockDate(Date lastStockDate) {
+    public void setLastStockDate(LocalDateTime lastStockDate) {
         this.lastStockDate = lastStockDate;
     }
 
-    public Date getLastSaleDate() {
+    public LocalDateTime getLastSaleDate() {
         return lastSaleDate;
     }
 
-    public void setLastSaleDate(Date lastSaleDate) {
+    public void setLastSaleDate(LocalDateTime lastSaleDate) {
         this.lastSaleDate = lastSaleDate;
     }
 
@@ -213,4 +214,5 @@ public class Inventory extends PanacheEntity {
     public void setMaximumQuantity(int maximumQuantity) {
         this.maximumQuantity = maximumQuantity;
     }
+
 }

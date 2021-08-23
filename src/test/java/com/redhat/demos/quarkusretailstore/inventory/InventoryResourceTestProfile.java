@@ -1,6 +1,6 @@
-package com.redhat.demos.quarkusretailstore.inventory.infrastrcuture;
+package com.redhat.demos.quarkusretailstore.inventory;
 
-import com.redhat.demos.quarkusretailstore.products.MockProductsService;
+import com.redhat.demos.quarkusretailstore.inventory.MockInventoryService;
 import io.quarkus.test.junit.QuarkusTestProfile;
 
 import java.util.Collections;

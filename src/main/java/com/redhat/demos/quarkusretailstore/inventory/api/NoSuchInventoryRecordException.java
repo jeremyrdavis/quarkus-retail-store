@@ -1,4 +1,4 @@
-package com.redhat.demos.quarkusretailstore.inventory;
+package com.redhat.demos.quarkusretailstore.inventory.api;
 
 public class NoSuchInventoryRecordException extends Throwable {
 
