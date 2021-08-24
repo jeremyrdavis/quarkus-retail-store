@@ -1,6 +1,7 @@
 package com.redhat.demos.quarkusretailstore.invoicing.domain;
 
 import com.redhat.demos.quarkusretailstore.invoicing.UnitOfMeasure;
+import com.redhat.demos.quarkusretailstore.invoicing.api.InvoiceLineDTO;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import javax.persistence.Entity;

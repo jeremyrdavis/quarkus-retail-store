@@ -1,30 +1,28 @@
-package com.redhat.demos.quarkusretailstore.invoicing.domain;
+package com.redhat.demos.quarkusretailstore.invoicing.api;
 
-import com.redhat.demos.quarkusretailstore.invoicing.api.InvoiceHeaderDTO;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.redhat.demos.quarkusretailstore.invoicing.domain.InvoiceHeader;
 
-import javax.persistence.Entity;
 import java.util.Date;
 
-@Entity
-public
-class InvoiceHeader extends PanacheEntity {
+/**
+ * Immutable representation of an InvoiceHeader domain object
+ */
+public class InvoiceHeaderDTO {
 
-    String id;
+    final String id;
 
-    String storeId;
+    final String storeId;
 
-    Date date;
+    final Date date;
 
-    Double totalDollarAmount;
+    final Double totalDollarAmount;
 
-    int numberOfLines;
+    final int numberOfLines;
 
-    public InvoiceHeader() {
-
-    }
-
-    public InvoiceHeader(String id, String storeId, Date date, Double totalDollarAmount, int numberOfLines) {
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public InvoiceHeaderDTO(@JsonProperty("id") String id, @JsonProperty("storeId") String storeId, @JsonProperty("date") Date date, @JsonProperty("totalDollarAmount") Double totalDollarAmount, @JsonProperty("numberOfLines") int numberOfLines) {
         this.id = id;
         this.storeId = storeId;
         this.date = date;
@@ -32,15 +30,22 @@ class InvoiceHeader extends PanacheEntity {
         this.numberOfLines = numberOfLines;
     }
 
+    public InvoiceHeaderDTO(final InvoiceHeader invoiceHeader) {
+        this.id = invoiceHeader.getId();
+        this.storeId = invoiceHeader.getStoreId();
+        this.date = invoiceHeader.getDate();
+        this.totalDollarAmount = invoiceHeader.getTotalDollarAmount();
+        this.numberOfLines = invoiceHeader.getNumberOfLines();
+    }
+
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("InvoiceHeader{");
+        final StringBuilder sb = new StringBuilder("InvoiceHeaderDTO{");
         sb.append("id='").append(id).append('\'');
         sb.append(", storeId='").append(storeId).append('\'');
         sb.append(", date=").append(date);
         sb.append(", totalDollarAmount=").append(totalDollarAmount);
         sb.append(", numberOfLines=").append(numberOfLines);
-        sb.append(", id=").append(id);
         sb.append('}');
         return sb.toString();
     }
@@ -50,7 +55,7 @@ class InvoiceHeader extends PanacheEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        InvoiceHeader that = (InvoiceHeader) o;
+        InvoiceHeaderDTO that = (InvoiceHeaderDTO) o;
 
         if (numberOfLines != that.numberOfLines) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
@@ -73,39 +78,19 @@ class InvoiceHeader extends PanacheEntity {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getStoreId() {
         return storeId;
-    }
-
-    public void setStoreId(String storeId) {
-        this.storeId = storeId;
     }
 
     public Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public Double getTotalDollarAmount() {
         return totalDollarAmount;
     }
 
-    public void setTotalDollarAmount(Double totalDollarAmount) {
-        this.totalDollarAmount = totalDollarAmount;
-    }
-
     public int getNumberOfLines() {
         return numberOfLines;
-    }
-
-    public void setNumberOfLines(int numberOfLines) {
-        this.numberOfLines = numberOfLines;
     }
 }

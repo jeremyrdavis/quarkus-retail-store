@@ -1,30 +1,46 @@
-package com.redhat.demos.quarkusretailstore.invoicing.api;
+package com.redhat.demos.quarkusretailstore.ui.api;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.redhat.demos.quarkusretailstore.invoicing.api.InvoiceDTO;
+
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * An immutable representation of the data making up an invoice
+ * JSON representation of an Invoice
  */
-public class InvoiceDTO {
+public class InvoiceJson {
 
     final String invoiceId;
 
-    final InvoiceHeaderDTO invoiceHeader;
+    final InvoiceHeaderJson invoiceHeader;
 
-    final Collection<InvoiceLineDTO> invoiceLines;
+    final Collection<InvoiceLineJson> invoiceLines;
 
     final String customerName;
 
-    public InvoiceDTO(String invoiceId, InvoiceHeaderDTO invoiceHeader, Collection<InvoiceLineDTO> invoiceLines, String customerName) {
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public InvoiceJson(@JsonProperty("invoiceId") String invoiceId, @JsonProperty("invoiceHeader") InvoiceHeaderJson invoiceHeader, @JsonProperty("invoiceLines") Collection<InvoiceLineJson> invoiceLines, @JsonProperty("customerName") String customerName) {
         this.invoiceId = invoiceId;
         this.invoiceHeader = invoiceHeader;
         this.invoiceLines = invoiceLines;
         this.customerName = customerName;
     }
 
+    public InvoiceJson(final InvoiceDTO invoiceDTO) {
+        this.invoiceId = invoiceDTO.getInvoiceId();
+        this.invoiceHeader =  new InvoiceHeaderJson(invoiceDTO.getInvoiceHeader());
+        this.customerName = invoiceDTO.getCustomerName();
+        this.invoiceLines = new ArrayList<>(invoiceDTO.getInvoiceLines().size());
+        invoiceDTO.getInvoiceLines().forEach(invoiceLineDTO -> {
+            this.invoiceLines.add(new InvoiceLineJson(invoiceLineDTO));
+        });
+    }
+
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("InvoiceDTO{");
+        final StringBuilder sb = new StringBuilder("InvoiceJson{");
         sb.append("invoiceId='").append(invoiceId).append('\'');
         sb.append(", invoiceHeader=").append(invoiceHeader);
         sb.append(", invoiceLines=").append(invoiceLines);
@@ -38,7 +54,7 @@ public class InvoiceDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        InvoiceDTO that = (InvoiceDTO) o;
+        InvoiceJson that = (InvoiceJson) o;
 
         if (invoiceId != null ? !invoiceId.equals(that.invoiceId) : that.invoiceId != null) return false;
         if (invoiceHeader != null ? !invoiceHeader.equals(that.invoiceHeader) : that.invoiceHeader != null)
@@ -60,11 +76,11 @@ public class InvoiceDTO {
         return invoiceId;
     }
 
-    public InvoiceHeaderDTO getInvoiceHeader() {
+    public InvoiceHeaderJson getInvoiceHeader() {
         return invoiceHeader;
     }
 
-    public Collection<InvoiceLineDTO> getInvoiceLines() {
+    public Collection<InvoiceLineJson> getInvoiceLines() {
         return invoiceLines;
     }
 
@@ -72,4 +88,3 @@ public class InvoiceDTO {
         return customerName;
     }
 }
-

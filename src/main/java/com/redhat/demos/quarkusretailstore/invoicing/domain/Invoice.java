@@ -4,7 +4,9 @@ import com.redhat.demos.quarkusretailstore.invoicing.CreateInvoiceCommand;
 import com.redhat.demos.quarkusretailstore.invoicing.api.InvoiceDTO;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 
 /**
  * Domain object representing Invoices
@@ -18,12 +20,33 @@ public class Invoice {
     }
 
     public static Invoice from(InvoiceDTO invoiceDTO) {
+
+        // create an InvoiceHeader from the DTO
+        InvoiceHeader invoiceHeader = new InvoiceHeader();
+        invoiceHeader.setDate(invoiceDTO.getInvoiceHeader().getDate());
+        invoiceHeader.setStoreId(invoiceDTO.getInvoiceHeader().getStoreId());
+        invoiceHeader.setNumberOfLines(invoiceDTO.getInvoiceHeader().getNumberOfLines());
+        invoiceHeader.setTotalDollarAmount(invoiceDTO.getInvoiceHeader().getTotalDollarAmount());
+        invoiceHeader.setId(invoiceDTO.getInvoiceHeader().getId());
+
+        // create a Collection of InvoiceLines from the DTO
+        Collection<InvoiceLine> invoiceLines = new ArrayList<>(invoiceDTO.getInvoiceLines().size());
+        invoiceDTO.getInvoiceLines().forEach(invoiceLineDTO -> {
+            InvoiceLine invoiceLine = new InvoiceLine();
+            invoiceLine.setBillQuantity(invoiceLineDTO.getBillQuantity());
+            invoiceLine.setExtendedPrice(invoiceLineDTO.getExtendedPrice());
+            invoiceLine.setSkuId(invoiceLineDTO.getSkuId());
+            invoiceLine.setProductDescripiton(invoiceLineDTO.getProductDescripiton());
+            invoiceLines.add(invoiceLine);
+        });
+
+        // Create the InvoiceRecord
         InvoiceRecord invoiceRecord = new InvoiceRecord(
                 invoiceDTO.getInvoiceId(),
-                invoiceDTO.getInvoiceHeader(),
-                invoiceDTO.getInvoiceLines(),
-                invoiceDTO.getCustomerName()
-        );
+                invoiceHeader,
+                invoiceLines,
+                invoiceDTO.getCustomerName());
+
         return new Invoice(invoiceRecord);
     }
 
