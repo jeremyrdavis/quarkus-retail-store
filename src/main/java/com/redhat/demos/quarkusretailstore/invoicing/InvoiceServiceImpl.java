@@ -11,9 +11,10 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 
     @Override
-    public void createInvoice(InvoiceDTO invoiceDTO) {
+    public InvoiceDTO createInvoice(InvoiceDTO invoiceDTO) {
 
         Invoice invoice = Invoice.from(invoiceDTO);
+        return invoiceDTO;
     }
 
     @Override
