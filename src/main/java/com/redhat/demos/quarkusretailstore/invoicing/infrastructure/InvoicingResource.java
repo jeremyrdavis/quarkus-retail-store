@@ -1,9 +1,8 @@
 package com.redhat.demos.quarkusretailstore.invoicing.infrastructure;
 
-import com.redhat.demos.quarkusretailstore.invoicing.CreateInvoiceCommand;
-import com.redhat.demos.quarkusretailstore.invoicing.Invoice;
-import com.redhat.demos.quarkusretailstore.invoicing.InvoiceRepository;
 import com.redhat.demos.quarkusretailstore.invoicing.NoSuchInvoiceException;
+import com.redhat.demos.quarkusretailstore.invoicing.api.InvoiceDTO;
+import com.redhat.demos.quarkusretailstore.invoicing.api.InvoiceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,13 +12,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/invoicing")
+@Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class InvoicingResource {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InvoicingResource.class);
 
     @Inject
-    InvoiceRepository invoiceRepository;
+    InvoiceService invoiceService;
 
 //    @POST
 //    public Response createInvoice(final CreateInvoiceCommand createInvoiceCommand) {
@@ -27,10 +27,11 @@ public class InvoicingResource {
 //    }
 
     @GET
-    public Response getInvoiceById(@QueryParam("invoiceId") final String invoiceId){
+    @Path("/{invoiceId}")
+    public Response getInvoiceById(@PathParam("invoiceId") final String invoiceId){
 
         try {
-            Invoice invoice = invoiceRepository.findById(invoiceId);
+            InvoiceDTO invoice = invoiceService.findById(invoiceId);
             return Response.status(Response.Status.FOUND).entity(invoice).build();
         } catch (NoSuchInvoiceException e) {
             LOGGER.error(e.getMessage());

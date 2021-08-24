@@ -1,4 +1,4 @@
-package com.redhat.demos.quarkusretailstore.invoicing;
+package com.redhat.demos.quarkusretailstore.invoicing.domain;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
+public
 class InvoiceHeader extends PanacheEntity {
 
     String id;

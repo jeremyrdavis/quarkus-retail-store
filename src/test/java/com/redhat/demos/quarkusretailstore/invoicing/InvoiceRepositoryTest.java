@@ -1,5 +1,7 @@
 package com.redhat.demos.quarkusretailstore.invoicing;
 
+import com.redhat.demos.quarkusretailstore.invoicing.api.InvoiceDTO;
+import com.redhat.demos.quarkusretailstore.invoicing.domain.InvoiceRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -21,8 +23,8 @@ public class InvoiceRepositoryTest {
     @Test @Transactional
     public void testPersisting() {
 
-        InvoiceData invoiceData = new InvoiceData(null, "Elmo");
 /*
+        InvoiceDTO invoiceData = new InvoiceDTO(null, "Elmo");
         Invoice invoice = Invoice.createFrom(invoiceData);
         LOGGER.debug("Invoice after creation: {}", invoice);
         assertNotNull(invoice);

@@ -1,6 +1,5 @@
-package com.redhat.demos.quarkusretailstore.invoicing;
+package com.redhat.demos.quarkusretailstore.invoicing.domain;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
@@ -25,6 +24,13 @@ class InvoiceRecord extends PanacheEntityBase {
 
     public InvoiceRecord() {
 
+    }
+
+    public InvoiceRecord(String invoiceId, InvoiceHeader invoiceHeader, Collection<InvoiceLine> invoiceLines, String customerName) {
+        this.invoiceId = invoiceId;
+        this.invoiceHeader = invoiceHeader;
+        this.invoiceLines = invoiceLines;
+        this.customerName = customerName;
     }
 
     public InvoiceRecord(final String customerName) {

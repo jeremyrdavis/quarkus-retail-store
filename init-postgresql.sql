@@ -139,8 +139,9 @@ alter table if exists Supplier
     foreign key (shippingAddress_id)
     references Address;
 
-/** Insert Data **/
+/** Insert Data
 insert into ProductMaster (
     product_id varchar(255) not null,
     description varchar(255),
     primary key (product_id)
+**/
