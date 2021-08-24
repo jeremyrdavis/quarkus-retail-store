@@ -138,10 +138,3 @@ alter table if exists Supplier
     add constraint FK5mrlj4ard2kgby8llosdtwo5u
     foreign key (shippingAddress_id)
     references Address;
-
-/** Insert Data
-insert into ProductMaster (
-    product_id varchar(255) not null,
-    description varchar(255),
-    primary key (product_id)
-**/
